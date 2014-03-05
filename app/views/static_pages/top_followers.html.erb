@@ -4,7 +4,7 @@
     <%= paginate @instagram_parsed %>
     <ol>
       <% if @instagram_parsed.empty? %>
-        <%= "Instagram has not been authorized" %>
+        
       <% else %>
         <% if @instagram_parsed.length < 200 %>
           <%= render "inst_par"%>
@@ -21,7 +21,7 @@
     <%= paginate @twitter_parsed %>
     <ol>
       <% if @twitter_parsed.empty? %>
-        <%= "Twitter has not been authorized" %>
+       
       <% else %>
         <% if @twitter_parsed.length < 200 %>
 

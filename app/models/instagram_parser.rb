@@ -13,16 +13,11 @@ class InstagramParser
     @info_array = []
   end
 
-  # def find_locations_for_users
-  #   find_id.each do |id|
-  #     get_location(id)
-  #   end
-  # end
+  
 
   def find_id
     new_array = []
     @data.each do |hash|
-      #id as symbol?
       new_array << hash["id"].to_i
     end
     new_array
@@ -35,8 +30,8 @@ class InstagramParser
         :username => user["username"],
         :bio => user["bio"],
         :name => user["full_name"],
-        :followers_count => user["counts"]["followed_by"],
-        :location => get_location(id).first
+        :followers_count => user["counts"]["followed_by"]
+        #:location => get_location(id).first
       }
   end
 
@@ -52,7 +47,8 @@ class InstagramParser
         next
       end
     end
-    sort_followers(info_array, :followers_count)
+    #sort_followers(info_array, :followers_count)
+    info_array
   end
 
   def find_photo_location(id)
