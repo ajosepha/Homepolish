@@ -18,7 +18,7 @@
 <% else %>
   <p><strong>Authenticate through one of these services:</strong></p>
 <% end %>
-
+<div class="auth_provider_div">
 <a href="/auth/twitter" class="auth_provider">
   <%= image_tag "twitter_64.png", :size => "64x64", :alt => "Twitter" %>
   Twitter
@@ -27,5 +27,6 @@
   <%= image_tag "instagram_64.png", :size => "64x64", :alt => "Instagram" %>
   Instagram
 </a>
+<div>
 <div class="clear"></div>
 </div>

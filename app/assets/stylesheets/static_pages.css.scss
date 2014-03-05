@@ -5,13 +5,18 @@
 
 .main-wrapper {
   border: 1px solid black;
-  background-color: rgba(0,0,0,.4);
+  background-color: rgba(0,0,0,.6);
   overflow: auto;
   color: white;
+  margin-top: -25px;
 }
 
 .main-wrapper a {
   color: #08B89F;
+}
+
+.main-wrapper ol li {
+  text-shadow: 1px 1px black;
 }
 
 
@@ -30,6 +35,10 @@
 
     border-top: thin solid #97b4e0;
     border-bottom: thin solid #97b4e0;
+}
+
+.authentication {
+  text-align: center;
 }
 
 h2 {
