@@ -14,6 +14,7 @@ gem 'instagram', :git => "git://github.com/Instagram/instagram-ruby-gem.git"
 gem 'twitter'
 gem 'figaro'
 gem 'geocoder'
+gem 'whenever', :require => false
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
