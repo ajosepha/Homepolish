@@ -18,7 +18,9 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+set :environment, :development 
+set :output, 'tmp/messages.log'
 
-every 10.minute do 
-  runner "InstagramDatum.find_and_sort"
+every 2.minutes do 
+  runner "InstagramDatum.find_followers", environment => "development"
 end
