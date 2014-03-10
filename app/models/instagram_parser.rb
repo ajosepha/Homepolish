@@ -10,7 +10,7 @@ class InstagramParser
       # config.client_id =  ENV['INSTAGRAM_ID']
       # config.client_secret = ENV['INSTAGRAM_SECRET']
       config.access_token = "225440768.2485542.3da25a35bab5486f831de5377915f66f"
-      user_obj.authentications.find_by_provider("instagram").token
+      # user_obj.authentications.find_by_provider("instagram").token
     end
     @test = Instagram.user_followed_by(9620227, :count => -1)
     @data = Instagram.user_followed_by(user_obj.authentications.find_by_provider("instagram").uid, :count => -1)
