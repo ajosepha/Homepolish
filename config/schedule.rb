@@ -18,9 +18,10 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-set :environment, :development 
-set :output, 'tmp/messages.log'
+# set :environment, :development 
+# set :output, 'tmp/messages.log'
 
-every 2.minutes do 
-  runner "InstagramDatum.find_followers", environment => "development"
+every 1.hour do 
+  runner "InstagramDatum.new.find_followers", :environment => 'development'
 end
+

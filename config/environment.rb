@@ -6,6 +6,6 @@ Homepolish::Application.initialize!
 
 # Rails::Initializer.run do |config|
 
-#   config.gem 'javan-whenever', :lib => false, :source => 'gems.github.com' 
+# config.gem 'whenever', :lib => false, :source => 'gems.github.com' 
 
 # end

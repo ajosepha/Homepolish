@@ -3,40 +3,23 @@ class InstagramDatum < ActiveRecord::Base
   attr_accessible :name, :username, :bio, :followers_count, :instagram_id, :location
   validates_uniqueness_of :username, scope: :user_id
 
-  # def create_with_instagram(current_user)
-  #   instagram_parser = InstagramParser.new(current_user)
-  #   data = instagram_parser.parse_and_sort
-  #   data.each do |datum|
-  #     d = InstagramDatum.new(datum)
-  #     d.user_id = current_user.id
-  #     d.save
-  #   end
-  # end
-
-   def initialize
-    Instagram.configure do |config|
-      config.client_id = "73c57238ee7a4998818a4bb43e3aa369"
-      config.client_secret = "3e9d04b20ad34cfea76b7a8fd5797308"
-      config.access_token = "225440768.2485542.3da25a35bab5486f831de5377915f66f"
-    end
-  end
-
   def find_followers_count
     @update = InstagramDatum.where(followers_count: nil)
   end
 
 
   def find_followers
+    InstagramInitialize.new
     find_followers_count
     @update.each_with_index do |person, i|
-      break if i > 50
+      break if i > 4000
        begin
         id = person.instagram_id
         followers = Instagram.user(id)
         person.followers_count = followers["counts"]["followed_by"]
         person.save
       rescue
-        person.delete
+        person.followers_count = 0
         next     
       end
     end
@@ -59,7 +42,7 @@ class InstagramDatum < ActiveRecord::Base
     data = make_array
     array.each do |element|
       dumb = InstagramDatum.new(element)
-      dumb.user_id = User.last.id
+      dumb.user_id = User.first.id
       dumb.save
     end
   end
