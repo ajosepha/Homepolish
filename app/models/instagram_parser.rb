@@ -5,24 +5,23 @@ class InstagramParser
   def initialize(user_obj)
     @user_obj = user_obj
     Instagram.configure do |config|
-      config.client_id =  ENV['INSTAGRAM_ID']
-      config.client_secret = ENV['INSTAGRAM_SECRET']
-      config.access_token = user_obj.authentications.find_by_provider("instagram").token
+      config.client_id = "73c57238ee7a4998818a4bb43e3aa369"
+      config.client_secret = "3e9d04b20ad34cfea76b7a8fd5797308"
+      # config.client_id =  ENV['INSTAGRAM_ID']
+      # config.client_secret = ENV['INSTAGRAM_SECRET']
+      config.access_token = "225440768.2485542.3da25a35bab5486f831de5377915f66f"
+      # user_obj.authentications.find_by_provider("instagram").token
     end
+    @test = Instagram.user_followed_by(9620227, :count => -1)
     @data = Instagram.user_followed_by(user_obj.authentications.find_by_provider("instagram").uid, :count => -1)
     @info_array = []
   end
 
-  # def find_locations_for_users
-  #   find_id.each do |id|
-  #     get_location(id)
-  #   end
-  # end
+  
 
   def find_id
     new_array = []
     @data.each do |hash|
-      #id as symbol?
       new_array << hash["id"].to_i
     end
     new_array
@@ -52,7 +51,8 @@ class InstagramParser
         next
       end
     end
-    sort_followers(info_array, :followers_count)
+    #sort_followers(info_array, :followers_count)
+    info_array
   end
 
   def find_photo_location(id)

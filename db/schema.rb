@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140226225035) do
+ActiveRecord::Schema.define(:version => 20140305163954) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(:version => 20140226225035) do
     t.integer  "instagram_id"
     t.string   "location"
   end
+
+  add_index "instagram_data", ["user_id"], :name => "index_instagram_data_on_user_id"
 
   create_table "twitter_data", :force => true do |t|
     t.string   "name"
