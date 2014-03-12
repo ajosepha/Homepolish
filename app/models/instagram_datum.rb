@@ -41,7 +41,8 @@ class InstagramDatum < ActiveRecord::Base
     @update = InstagramDatum.where(followers_count: nil)
   end
 
-  def find_existing_followers
+
+  def find_followers_count
     @followers = InstagramDatum.where("followers_count IS NOT NULL")
   end
 
@@ -51,7 +52,7 @@ class InstagramDatum < ActiveRecord::Base
     InstagramInitialize.new
     @update = InstagramDatum.where(followers_count: nil)
     @update.each_with_index do |person, i|
-      break if i > 50
+      break if i > 100
       begin
         person_id = person.instagram_id
         followers = Instagram.user(person_id)
