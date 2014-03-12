@@ -14,7 +14,7 @@ class AuthenticationsController < ApplicationController
 
     if auth['provider'].downcase == "twitter"
       @a = TwitterDatum.new
-      @a.create_with_twitter(current_user)
+      @a.save_twitter(current_user)
     else
       @b = InstagramDatum.new
       @b.store_followers(current_user)

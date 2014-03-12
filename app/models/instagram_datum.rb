@@ -1,5 +1,5 @@
-require 'debugger'
 class InstagramDatum < ActiveRecord::Base
+
   belongs_to :user
   attr_accessible :name, :username, :bio, :followers_count, :instagram_id, :location, :id
   validates_uniqueness_of :username, scope: :user_id
@@ -23,6 +23,7 @@ class InstagramDatum < ActiveRecord::Base
     array
   end
 
+
   def save_followers(current_user)
     make_array.each do |element|
       follower = InstagramDatum.new(element)
@@ -31,10 +32,14 @@ class InstagramDatum < ActiveRecord::Base
     end
   end
 
+
+  def find_private
+    @private = InstagramDatum.where(followers_count: -1)
+  end
+
   def find_followers_count
     @followers = InstagramDatum.where("followers_count IS NOT NULL")
   end
-
 
   def find_followers
     InstagramInitialize.new
@@ -49,11 +54,32 @@ class InstagramDatum < ActiveRecord::Base
       rescue
         person.followers_count = -1
         person.save
-        next
+        next     
       end
     end
   end
 
+
+  def make_array
+    array = []
+    @data.each do |user|
+      array << {
+        :instagram_id => user["id"],
+        :username => user["username"],
+        :bio => user["bio"],
+        :name => user["full_name"]}
+    end
+    array
+  end
+
+  def self.save_data
+    array = make_array
+    array.each do |element|
+      info = InstagramDatum.new(element)
+      info.user_id = User.last.id
+      info.save
+    end
+  end
 
 
 end
