@@ -6,12 +6,16 @@ class TwitterDatum < ActiveRecord::Base
 
 
   def save_twitter(current_user)
+    begin
     a = TwitterInitialize.new(current_user)
     array = a.find_followers
     array.each do |person|
       d = TwitterDatum.new(person)
       d.user_id = current_user.id
       d.save 
+    end
+    rescue
+      raise 'An error has happened'
     end
   end
 
