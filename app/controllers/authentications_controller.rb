@@ -17,7 +17,7 @@ class AuthenticationsController < ApplicationController
       @a.create_with_twitter(current_user)
     else
       @b = InstagramDatum.new
-      @b.create_with_instagram(current_user)
+      @b.store_followers(current_user)
     end
     flash[:notice] = "#{auth['provider'].to_s.capitalize} authentication successful"
     redirect_to authentications_url

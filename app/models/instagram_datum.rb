@@ -1,34 +1,19 @@
+require 'debugger'
 class InstagramDatum < ActiveRecord::Base
   belongs_to :user
-  attr_accessible :name, :username, :bio, :followers_count, :instagram_id, :location
+  attr_accessible :name, :username, :bio, :followers_count, :instagram_id, :location, :id
   validates_uniqueness_of :username, scope: :user_id
 
-  def find_followers_count
-    @update = InstagramDatum.where(followers_count: nil)
+
+  def store_followers(current_user)
+    InstagramUser.new(current_user)
+    @data = Instagram.user_followed_by(current_user.authentications.find_by_provider("instagram").uid, :count => -1)
+    save_followers(current_user)
   end
-
-
-  def find_followers
-    InstagramInitialize.new
-    find_followers_count
-    @update.each_with_index do |person, i|
-      break if i > 4000
-       begin
-        id = person.instagram_id
-        followers = Instagram.user(id)
-        person.followers_count = followers["counts"]["followed_by"]
-        person.save
-      rescue
-        person.followers_count = 0
-        next     
-      end
-    end
-  end
-
 
   def make_array
     array = []
-    @test.each do |user|
+    @data.each do |user|
       array << {
         :instagram_id => user["id"],
         :username => user["username"],
@@ -38,18 +23,42 @@ class InstagramDatum < ActiveRecord::Base
     array
   end
 
-  def self.save_dummy
-    data = make_array
-    array.each do |element|
-      dumb = InstagramDatum.new(element)
-      dumb.user_id = User.first.id
-      dumb.save
+  def save_followers(current_user)
+    make_array.each do |element|
+      follower = InstagramDatum.new(element)
+      follower.user_id = User.first.id
+      follower.save
     end
   end
 
+  # def find_followers_count
+  #   @update = InstagramDatum.where(followers_count: nil)
+  # end
+
+
+  def find_followers
+    InstagramInitialize.new
+    @update = InstagramDatum.where(followers_count: nil)
+    @update.each_with_index do |person, i|
+      break if i > 50
+      begin
+        person_id = person.instagram_id
+        followers = Instagram.user(person_id)
+        person.followers_count = followers["counts"]["followed_by"]
+        person.save
+      rescue
+        person.followers_count = -1
+        person.save
+        next
+      end
+    end
+  end
+
+
+
 end
 
-# @test = Instagram.user_followed_by(9620227, {:count => -1})
+# @data = Instagram.user_followed_by(9620227, {:count => -1})
 
 
 
