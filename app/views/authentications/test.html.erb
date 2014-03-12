@@ -1,0 +1,46 @@
+<div class="authentication-wrapper">
+<% if @authentications %>
+  <% unless @authentications.empty? %>
+    
+    <div class="authentications">
+      <% for authentication in @authentications %>
+        <div class="authentication">
+          <%= image_tag "#{authentication.provider}_32.png", :size => "32x32" %>
+          <div class="provider"><%= authentication.provider.titleize %></div>
+          <div class="uid"><%= authentication.nickname %></div>
+          <%= link_to "X", authentication, :confirm => 'Are you sure you want to remove this authentication option?', :method => :delete, :class => "remove" %>
+        </div>
+      <% end %>
+      <div class="clear"></div>
+    </div>
+    <%else %>
+    <p><strong>Please authenticate your accounts using:</strong></p>
+  <% end %>
+  
+
+
+  <p><strong>Add another authentication to sign in with:</strong></p>
+
+
+
+
+<% else %>
+<% end %>
+<div class="auth_provider_div">
+  <ul>
+
+    <li>
+      <a href="/auth/twitter">
+      <%= image_tag "twitter_64.png", :size => "64x64", :alt => "Twitter" %>
+      Twitter
+    </a>
+    </li>
+    <li>
+      <a href="/auth/instagram">
+        <%= image_tag "instagram_64.png", :size => "64x64", :alt => "Instagram" %>
+        Instagram
+      </a>
+    </li>
+  </ul>
+  <div class="clear"></div>
+</div>

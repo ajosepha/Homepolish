@@ -21,7 +21,4 @@
 # set :environment, :development 
 # set :output, 'tmp/messages.log'
 
-# every 10.minutes do 
-#   runner "InstagramDatum.new.find_followers"
-#   # , environment => "development"
-# end
+

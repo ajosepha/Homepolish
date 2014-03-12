@@ -20,12 +20,14 @@ body {
 // }
 
 
+/* Homepage */
 .jumbotron {
   margin-top: 18%;
   text-align: center;
   background: rgba(0, 0, 0, .5);
   color: white;
 }
+
 
 .signup li {
   display: inline-block;
@@ -40,6 +42,8 @@ body {
   border: none;
   color: white;
 }
+
+/*navbar */
 
 .navbar {
   background-color: #08b89f;
@@ -70,24 +74,31 @@ h2.titleform {
   width: 300px;
   margin: 0 auto;
   color: white;
-  padding: 15px 10px 10px 10px;
+  padding: 20px 0 20px 0;
+}
+
+div.centerform label {
+  padding: 20px 0 0 0;
 
 }
 
 div.lastdiv{
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
   color: white;
 }
+
 
 #signup.btn {
  background: #08b89f;
- margin-bottom: 10px;
+ margin-bottom: 20px;
  color: white;
-
 }
+
 
 .centerform a {
   color: white;
+  line-height: 20px;
 }
 
 input, select, textarea{
@@ -103,11 +114,11 @@ textarea:focus, input:focus {
 .authentication-wrapper {
   text-align: center;
   background: rgba(0, 0, 0, .5);
-  width: 500px;
-  height: 300px;
+  width: 450px;
   margin: 0 auto;
   color: white;
   padding: 15px 10px 10px 10px;
+  overflow: hidden;
 
 }
 
@@ -118,13 +129,12 @@ textarea:focus, input:focus {
 
 .authentication {
   width: 200px;
-  float: left;
+  // float: left;
   background-color: #EEE;
   border: solid 1px #999;
   padding: 5px 10px;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
-  position: relative;
   margin-right: 10px;
 }
 
@@ -145,10 +155,6 @@ textarea:focus, input:focus {
   -webkit-border-radius: 6px;
 }
 
-.authentication img {
-  float: left;
-  margin-right: 10px;
-}
 
 .authentication .provider {
   font-weight: bold;
@@ -156,18 +162,21 @@ textarea:focus, input:focus {
 }
 
 .authentication .uid {
-  color: #666;
+  color: #08b89f;
   font-size: 11px;
 }
 
-.auth_provider img {
-  display: block;
+
+.auth_provider a {
+  display: inline-block;
+  margin: 0 20px 0 0;
+  color: #08b89f;
 }
 
 .auth_provider {
-  float: left;
-  text-decoration: none;
-  margin-right: 20px;
-  text-align: center;
-  margin-bottom: 10px;
+  left: 35%;
+}
+
+.clear { 
+    clear:both; 
 }

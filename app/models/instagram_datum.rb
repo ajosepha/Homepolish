@@ -1,7 +1,12 @@
+
   class InstagramDatum < ActiveRecord::Base
+
+class InstagramDatum < ActiveRecord::Base
+
   belongs_to :user
-  attr_accessible :name, :username, :bio, :followers_count, :instagram_id, :location
+  attr_accessible :name, :username, :bio, :followers_count, :instagram_id, :location, :id
   validates_uniqueness_of :username, scope: :user_id
+
 
   # def create_with_instagram(current_user)
   #   instagram_parser = InstagramParser.new(curent_user)
@@ -21,23 +26,53 @@
   #   end
   # end
 
-  def find_followers_count
-    @update = InstagramDatum.where(followers_count: nil)
+
+  def store_followers(current_user)
+    InstagramUser.new(current_user)
+    @data = Instagram.user_followed_by(current_user.authentications.find_by_provider("instagram").uid, :count => -1)
+    save_followers(current_user)
   end
+
+  def make_array
+    array = []
+    @data.each do |user|
+      array << {
+        :instagram_id => user["id"],
+        :username => user["username"],
+        :bio => user["bio"],
+        :name => user["full_name"]}
+    end
+    array
+  end
+
+
+  def save_followers(current_user)
+    make_array.each do |element|
+      follower = InstagramDatum.new(element)
+      follower.user_id = User.first.id
+      follower.save
+    end
+  end
+
 
   def find_private
     @private = InstagramDatum.where(followers_count: -1)
   end
 
+  # def find_followers_count
+  #   @update = InstagramDatum.where(followers_count: nil)
+  # end
+
+
 
   def find_followers
     InstagramInitialize.new
-    find_followers_count
+    @update = InstagramDatum.where(followers_count: nil)
     @update.each_with_index do |person, i|
       break if i > 50
-       begin
-        id = person.instagram_id
-        followers = Instagram.user(id)
+      begin
+        person_id = person.instagram_id
+        followers = Instagram.user(person_id)
         person.followers_count = followers["counts"]["followed_by"]
         person.save
       rescue
@@ -69,6 +104,7 @@
       info.save
     end
   end
+
 
 end
 

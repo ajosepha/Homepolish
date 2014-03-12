@@ -67,11 +67,7 @@ class InstagramParser
   def geo_details(locations)
     geodetails = []
     locations.each do |element|
-      begin
-        geodetails << Geocoder.search("#{element[:latitude]}, #{element[:longitude]}")
-      rescue
-        break
-      end
+      geodetails << Geocoder.search("#{element[:latitude]}, #{element[:longitude]}")
     end
     geodetails
   end 
