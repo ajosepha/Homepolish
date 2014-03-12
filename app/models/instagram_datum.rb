@@ -1,30 +1,8 @@
-
-  class InstagramDatum < ActiveRecord::Base
-
 class InstagramDatum < ActiveRecord::Base
 
   belongs_to :user
   attr_accessible :name, :username, :bio, :followers_count, :instagram_id, :location, :id
   validates_uniqueness_of :username, scope: :user_id
-
-
-  # def create_with_instagram(current_user)
-  #   instagram_parser = InstagramParser.new(curent_user)
-  #   data = instagram_parser.parse_and_sort
-  #   data.each do |datum|
-  #     d = InstagramDatum.new(datum)
-  #     d.user_id = current_user.id
-  #     d.save
-  #   end
-  # end
-
-  #  def initialize
-  #   Instagram.configure do |config|
-  #     config.client_id = "73c57238ee7a4998818a4bb43e3aa369"
-  #     config.client_secret = "3e9d04b20ad34cfea76b7a8fd5797308"
-  #     config.access_token = "225440768.2485542.3da25a35bab5486f831de5377915f66f"
-  #   end
-  # end
 
 
   def store_followers(current_user)
@@ -59,9 +37,13 @@ class InstagramDatum < ActiveRecord::Base
     @private = InstagramDatum.where(followers_count: -1)
   end
 
-  # def find_followers_count
-  #   @update = InstagramDatum.where(followers_count: nil)
-  # end
+  def find_followers_count
+    @update = InstagramDatum.where(followers_count: nil)
+  end
+
+  def find_existing_followers
+    @followers = InstagramDatum.where("followers_count IS NOT NULL")
+  end
 
 
 
