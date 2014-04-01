@@ -1,4 +1,3 @@
-
 class TwitterDatum < ActiveRecord::Base
   belongs_to :user
   attr_accessible :name, :username, :bio, :location, :followers_count, :user_id
@@ -6,7 +5,6 @@ class TwitterDatum < ActiveRecord::Base
 
 
   def save_twitter(current_user)
-    begin
     a = TwitterInitialize.new(current_user)
     array = a.find_followers
     array.each do |person|
@@ -14,9 +12,20 @@ class TwitterDatum < ActiveRecord::Base
       d.user_id = current_user.id
       d.save 
     end
-    rescue
-      raise 'An error has happened'
-    end
   end
+
+  #  def save_twitter(current_user)
+  #   begin
+  #     a = TwitterInitialize.new(current_user)
+  #     array = a.find_followers
+  #     array.each do |person|
+  #       d = TwitterDatum.new(person)
+  #       d.user_id = current_user.id
+  #       d.save 
+  #     end
+  #   rescue
+  #     raise 'An error has happened'
+  #   end
+  # end
 
 end

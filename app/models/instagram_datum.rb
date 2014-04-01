@@ -27,7 +27,7 @@ class InstagramDatum < ActiveRecord::Base
   def save_followers(current_user)
     make_array.each do |element|
       follower = InstagramDatum.new(element)
-      follower.user_id = User.first.id
+      follower.user_id = current_user.id
       follower.save
     end
   end
@@ -76,7 +76,7 @@ class InstagramDatum < ActiveRecord::Base
     array = make_array
     array.each do |element|
       info = InstagramDatum.new(element)
-      info.user_id = User.last.id
+      info.user_id = current_user.id
       info.save
     end
   end
