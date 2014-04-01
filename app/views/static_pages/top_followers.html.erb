@@ -4,7 +4,8 @@
     <%= paginate @instagram_parsed %>
     <ol>
       <% if @instagram_parsed.empty? %>
-        
+
+        <%= "No Instagram followers on this page" %>
       <% else %>
         <% if @instagram_parsed.length < 200 %>
           <%= render "inst_par"%>
@@ -21,7 +22,9 @@
     <%= paginate @twitter_parsed %>
     <ol>
       <% if @twitter_parsed.empty? %>
-       
+     
+
+        <%= "No Twitter followers on this page" %>
       <% else %>
         <% if @twitter_parsed.length < 200 %>
 
