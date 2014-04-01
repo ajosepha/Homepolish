@@ -1,4 +1,8 @@
+# require 'ap'
+require 'twitter'
+
 class TwitterParser 
+
 
   attr_accessor :client, :info_array, :user_obj
 
@@ -14,7 +18,8 @@ class TwitterParser
   end
 
   def find_followers
-    @client.followers.each do |person|
+     while i < 20
+    @client.followers[i] do |person|
       @info_array << { :name => person.name,
       :username => person.username, 
       :bio => person.description,
@@ -23,12 +28,5 @@ class TwitterParser
     end
   end
 
-  def sort_followers(array, hash_key)
-    array.sort_by {|hash| hash[hash_key]}.reverse
-  end
 
-  def parse_and_sort
-    find_followers
-    sort_followers(info_array, :followers_count)
-  end
 end

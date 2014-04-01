@@ -4,27 +4,36 @@ class TwitterDatum < ActiveRecord::Base
   validates_uniqueness_of :username, scope: :user_id
 
 
-  def save_twitter(current_user)
-    a = TwitterInitialize.new(current_user)
-    array = a.find_followers
-    array.each do |person|
-      d = TwitterDatum.new(person)
-      d.user_id = current_user.id
-      d.save 
+  def tw_follower_ids
+    #TwitterInitialize.new
+    @array = @client.follower_ids.to_a
+    rescue Twitter::Error::TooManyRequests => error
+      p error
+      p 'tw_follower_ids sleep ' + error.rate_limit.reset_in.to_s
+      sleep error.rate_limit.reset_in
+    retry
+  end
+
+  def save_followers
+    @twitter_hashes= []
+    @array.each do |id|
+      @twitter_hashes << {:user_id => id}
+    end
+
+    @twitter_hashes.each do |element|
+      d = TwitterDatum.new(element)
+      d.user_id = 1
+      d.save
     end
   end
 
-  #  def save_twitter(current_user)
-  #   begin
-  #     a = TwitterInitialize.new(current_user)
-  #     array = a.find_followers
-  #     array.each do |person|
-  #       d = TwitterDatum.new(person)
-  #       d.user_id = current_user.id
-  #       d.save 
-  #     end
-  #   rescue
-  #     raise 'An error has happened'
+  # def save_twitter(current_user)
+  #   users_info = TwitterParser.new(current_user)
+  #   array = users_info.find_followers
+  #   array.each do |person|
+  #     d = TwitterDatum.new(person)
+  #     d.user_id = current_user.id
+  #     d.save 
   #   end
   # end
 
