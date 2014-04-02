@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(:version => 20140401221836) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.integer  "user_id"
-    t.integer  "twitter_id"
+    t.integer  "follower_id"
   end
 
   create_table "users", :force => true do |t|

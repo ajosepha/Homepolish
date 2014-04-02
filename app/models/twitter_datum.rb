@@ -14,12 +14,14 @@ class TwitterDatum < ActiveRecord::Base
     retry
   end
 
-  def save_followers
+  def make_array
     @twitter_hashes= []
     @array.each do |id|
-      @twitter_hashes << {:user_id => id}
+      @twitter_hashes << {:follower_id => id}
     end
+  end
 
+  def save_followers_id
     @twitter_hashes.each do |element|
       d = TwitterDatum.new(element)
       d.user_id = 1
