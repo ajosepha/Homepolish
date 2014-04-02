@@ -10,8 +10,8 @@ class TwitterInitialize
   #   end
   # end
 
-  def initialize(current_user)
-    user_obj = current_user
+  def new_client
+    #user_obj = current_user
     @client = Twitter::REST::Client.new do |config|
       config.consumer_key        = "hM8HnQ75aT8LZqAuJUI73bnT9"
       config.consumer_secret     = "5UtJWmyS7VKR2lUa0TpE3mCprYBfmxEI1dzJlX6IVaAAafQOMc"
@@ -29,16 +29,16 @@ class TwitterInitialize
   #   @followers.attrs[:users]
   # end
 
-  def find_followers
-    @info_array = []
-    @client.followers.each do |person|
-      @info_array << { :name => person.name,
-      :username => person.username, 
-      :bio => person.description,
-      :followers_count => person.followers_count,
-      :location => person.location }
-    end
-    @info_array
-  end
+  # def find_followers
+  #   @info_array = []
+  #   @client.followers.each do |person|
+  #     @info_array << { :name => person.name,
+  #     :username => person.username, 
+  #     :bio => person.description,
+  #     :followers_count => person.followers_count,
+  #     :location => person.location }
+  #   end
+  #   @info_array
+  # end
 
 end

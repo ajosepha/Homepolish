@@ -5,7 +5,8 @@ class TwitterDatum < ActiveRecord::Base
 
 
   def tw_follower_ids
-    #TwitterInitialize.new
+    twitter_connect = TwitterInitialize.new
+    @client = twitter_connect.new_client
     @array = @client.follower_ids.to_a
     rescue Twitter::Error::TooManyRequests => error
       p error
@@ -13,15 +14,17 @@ class TwitterDatum < ActiveRecord::Base
       sleep error.rate_limit.reset_in
     retry
   end
+  # end
 
   def make_array
     @twitter_hashes= []
     @array.each do |id|
       @twitter_hashes << {:follower_id => id}
+      @twitter_hashes
     end
   end
 
-  def save_followers_id
+  def self.save_followers_id
     @twitter_hashes.each do |element|
       d = TwitterDatum.new(element)
       d.user_id = current_user
@@ -29,14 +32,9 @@ class TwitterDatum < ActiveRecord::Base
     end
   end
 
-  # def save_twitter(current_user)
-  #   users_info = TwitterParser.new(current_user)
-  #   array = users_info.find_followers
-  #   array.each do |person|
-  #     d = TwitterDatum.new(person)
-  #     d.user_id = current_user.id
-  #     d.save 
-  #   end
-  # end
+  def find_followers_to_query
+    @update = InstagramDatum.where(username: nil)
+  end
+
 
 end
